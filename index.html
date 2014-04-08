@@ -1,17 +1,31 @@
 <html>
 <head>
-	<script src="request.js"></script>
-	<script src="https://apis.google.com/js/client.js?onload=onClientLoad"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
 </head>
 <body>
+	<div id="heading">
+		<center><h1>Youtube Dilemma</h1></center><br>
+	</div>
+	<div id="subheading">
+		<span>Confused which video you should watch?</span><br>
+		<span>Youtube Dilemma suggests you a video out of various videos of the same topic based on their views, likes and dislikes.</span>
+	</div>
+	</div>
+	<center>
 	<div id="input">
-		<!--<form>
-			<label>Search</label><input type="text" id="keyword" placeholder="Enter Keywords">
-			<button type="submit" onClick="makeRequest()">Video</button>
-		</form>-->
+		<input type="text" id="keyword" placeholder="Enter Keyword to Search" class="form-control input-lg" tabindex="2" onblur="foo()">
+		<br><button type="submit" class="btn btn-lg btn-primary btn-block" onClick="makeRequest()">Video</button>
 	</div> 
 	<div id="result">
-		<span id="video"></span>
+
+		<br><span id="video"></span>
 	</div>
+	</center>
+	<script src="request.js"></script>
+	<script src="https://apis.google.com/js/client.js?onload=onClientLoad"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </body>
 </html>

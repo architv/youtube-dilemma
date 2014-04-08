@@ -1,61 +1,63 @@
 var ids = [];
-var query = prompt("Enter Keyword");
+var query;
+
+function foo() {
+	query = document.getElementById("keyword").value;
+}
 function getStatistics() {
 	var request = gapi.client.youtube.videos.list({
-		part:'snippet, statistics',
-		fields:'items(snippet(title),statistics(dislikeCount, viewCount, likeCount))',
+		part:'id, snippet, statistics',
+		fields:'items(id, snippet(title),statistics(dislikeCount, viewCount, likeCount))',
 		id:ids,
-		maxResults:10,
 	});
 	request.execute(calculateScore);
 }
 
 function calculateScore(response) {
-	console.log(response);
 	var highScore = 0;
 	var winnerId;
 	var winnerTitle;
 
 	for (var i = 0; i<response.items.length; i++) {
 		var param = response.items[i].statistics;
-		console.log(param.viewCount);
-		console.log(param.likeCount);
-		console.log(param.dislikeCount);
+		likes = param.likeCount;
+		dislikes = param.dislikeCount;
+		sum = +likes + +dislikes;
+		diff = +likes - +dislikes;
 		if(param.likeCount != param.dislikeCount)
-			var likeRatio = (param.likeCount-param.dislikeCount)/(param.likeCount+param.dislikeCount);
+			var likeRatio = diff/sum;
 		else
 			var likeRatio = 0;
-		console.log("likeratio: "+likeRatio);
-		var score = param.viewCount*0.0000001 + 10*likeRatio;
-		console.log("score:"+score);
-		console.log("-----------------------------");
+		var score = param.viewCount*0.0000001 + likeRatio;
 		if (score > highScore) {
 			highScore = score;
-			winnerId = ids[i];
+			winnerId = response.items[i].id;
 			winnerTitle = response.items[i].snippet.title;
 		}
 	}
 	console.log(winnerTitle);
 	console.log("highscore: "+highScore);
+	console.log(winnerId);
+	console.log("-----------------------------");
 	document.getElementById("video").innerHTML = 'You should watch <a href="https://www.youtube.com/watch?v='+winnerId+'">this video</a>.'
 
 }
 //called when youtube api is loaded
 function onClientLoad() {
 	gapi.client.setApiKey('AIzaSyDVBGwi_G3YF0dNxLVtmwntj-ZrbTx2jxM');
-	gapi.client.load('youtube', 'v3', makeRequest);
-	console.log(query);
+	gapi.client.load('youtube', 'v3');
 }
 
 //called automatically as a callback to onClientLoad() function
 function makeRequest() {
+	document.getElementById("video").innerHTML = '';
 	console.log(query);
 	var request = gapi.client.youtube.search.list({
         part: 'snippet',
         q: query,
         order:'viewCount',
         type:'video',
-        maxResults:'10',
+        maxResults:12,
     });
 	request.execute(onResponse);
 }
@@ -63,8 +65,7 @@ function makeRequest() {
 function onResponse(response) {
  	var data = response.items;
  	for(var i = 0; i<data.length; i++) {
- 		ids[ids.length] = data[i].id.videoId;
+ 		ids[i] = data[i].id.videoId;
  	}
- 	console.log(ids);
  	getStatistics();
 }

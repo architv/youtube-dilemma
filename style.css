@@ -1,0 +1,47 @@
+body {
+  padding-top: 10px;
+  /* Safari 4-5, Chrome 1-9 */
+  /* Can't specify a percentage size? Laaaaaame. */
+  background: -webkit-gradient(radial, center center, 0, center center, 460, from(#ffffff), to(#e5e5e5));
+
+  /* Safari 5.1+, Chrome 10+ */
+  background: -webkit-radial-gradient(circle, #ffffff, #e5e5e5);
+
+  /* Firefox 3.6+ */
+  background: -moz-radial-gradient(circle, #ffffff, #e5e5e5);
+
+  /* IE 10 */
+  background: -ms-radial-gradient(circle, #ffffff, #e5e5e5);
+
+  /* Opera couldn't do radial gradients, then at some point they started supporting the -webkit- syntax, how it kinda does but it's kinda broken (doesn't do sizing) */
+}
+
+#heading {
+	font-weight: normal;
+	color:#cc181e;
+}
+
+#input {
+	width:35%;
+	margin:0 auto;
+	padding-top: 30px;
+}
+#subheading {
+	width:35%;
+	text-align: justify;
+	margin:0 auto;
+	/*font-size: 20px;*/
+	line-height: 28px;
+	display: block;
+	-webkit-font-smoothing: antialiased;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
+	font-family: robotoregular;
+	font-size: 20px;
+	color:#656a6f;
+}
+
+#result {
+	font-size: 20px;
+	line-height: 28px;
+	font-weight: bold;
+}
